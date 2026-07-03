@@ -1,0 +1,57 @@
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field__label {
+  font-size: 0.875rem;
+  margin-bottom: 6px;
+}
+
+.field__input {
+  box-sizing: border-box;
+
+  font: inherit;
+  color: #59606a;
+  font-size: 1.125rem;
+  line-height: 2rem;
+
+  padding: 16px;
+  border-radius: 12px;
+  border: 2px solid #c0c8d1;
+}
+
+.field__input::placeholder {
+  color: #c0c8d1;
+}
+
+/* outline отключаем всегда */
+.field__input:focus {
+  outline: none;
+}
+
+/* :not(.field__input_error) чтобы не перекрывать красную рамку при ошибке */
+.field__input:not(.field__input_error):focus {
+  border-color: #5c87e0;
+}
+
+.field__input:not(.field__input_error):not(:disabled):hover {
+  border-color: #5c87e0;
+}
+
+.field__input_error {
+  border-color: #ec4646;
+  color: #ec4646;
+}
+
+.field__input:disabled {
+  background-color: #f0f4f7;
+  border-color: #f0f4f7;
+  cursor: not-allowed;
+}
+
+.field__caption {
+  font-size: 0.875rem;
+  color: #ec4646;
+  margin: 6px 0 0;
+}
