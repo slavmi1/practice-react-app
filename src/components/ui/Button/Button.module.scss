@@ -4,36 +4,38 @@
   justify-content: center;
   gap: 8px;
 
-  padding: 14px;
-  border: 2px solid transparent;
-  border-radius: 12px;
+  box-sizing: border-box;
+  padding: 14px 28px;
+  border: 2px solid #5a2e16;
+  border-radius: 10px;
 
-  background-color: #2f5bcf;
+  background-color: #5a2e16;
   cursor: pointer;
 
-  color: white;
+  color: #fff8ef;
   font-size: 1.25rem;
-  line-height: 2rem;
+  font-weight: 700;
+  line-height: 1.5rem;
   letter-spacing: 0.04rem;
-
-  &:focus {
-    outline: none;
-  }
+  text-transform: uppercase;
 
   &:focus-visible {
-    border-color: #193494;
+    border-color: #c9a06d;
   }
 
   &:disabled {
-    background-color: #c0c8d1;
+    background-color: #d8cec3;
+    border-color: #d8cec3;
+    color: #8b8178;
     cursor: not-allowed;
   }
 
   &:not(:disabled):hover {
-    background-color: #2346b1;
+    background-color: #6b381b;
+    border-color: #c9a06d;
   }
 
   &:not(:disabled):active {
-    border-color: #193494;
+    background-color: #45220f;
   }
 }

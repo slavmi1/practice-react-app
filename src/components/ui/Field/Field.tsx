@@ -38,7 +38,7 @@ const Field = (props: InputProps) => {
         autoComplete={autoComplete}
         type={type}
       />
-      {error && <p className={styles.field__caption}>{error}</p>}
+      {error && <p className={styles.field__error}>{error}</p>}
     </div>
   );
 };

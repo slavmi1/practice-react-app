@@ -12,47 +12,42 @@
   box-sizing: border-box;
 
   font: inherit;
-  color: #59606a;
+  color: #2a2520;
   font-size: 1.125rem;
   line-height: 2rem;
 
   padding: 16px;
-  border-radius: 12px;
-  border: 2px solid #c0c8d1;
+  border-radius: 10px;
+  border: 2px solid #d8cec3;
 
   &::placeholder {
-    color: #c0c8d1;
-  }
-
-  /* outline отключаем всегда */
-  &:focus {
-    outline: none;
+    color: #8b8178;
   }
 
   /* :not(.field__input_error) чтобы не перекрывать красную рамку при ошибке */
   &:not(.field__input_error):focus {
-    border-color: #5c87e0;
+    border-color: #7a4725;
   }
 
   &:not(.field__input_error):not(:disabled):hover {
-    border-color: #5c87e0;
+    border-color: #7a4725;
   }
 
   &_error {
-    border-color: #ec4646;
-    color: #ec4646;
+    border-color: #c94a3a;
+    color: #c94a3a;
   }
 
   // :disabled ниже _error, чтобы перекрывать его
   &:disabled {
-    background-color: #f0f4f7;
-    border-color: #f0f4f7;
+    background-color: #f3efea;
+    border-color: #f3efea;
     cursor: not-allowed;
   }
 }
 
-.field__caption {
+.field__error {
   font-size: 0.875rem;
-  color: #ec4646;
+  color: #c94a3a;
   margin: 6px 0 0;
 }
