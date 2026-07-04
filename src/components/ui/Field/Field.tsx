@@ -1,4 +1,4 @@
-import "./Field.css";
+import styles from "./Field.module.scss";
 
 import type { ComponentProps } from "react";
 
@@ -19,22 +19,26 @@ const Field = (props: InputProps) => {
     ...inputProps
   } = props;
 
+  const inputClassName = error
+    ? `${styles.field__input} ${styles.field__input_error}`
+    : styles.field__input;
+
   return (
-    <div className={`field ${className}`}>
+    <div className={`${styles.field} ${className}`}>
       {label && (
-        <label className="field__label" htmlFor={id}>
+        <label className={styles.field__label} htmlFor={id}>
           {label}
         </label>
       )}
       <input
         {...inputProps}
-        className={`field__input ${error ? "field__input_error" : ""}`}
+        className={inputClassName}
         id={id}
         placeholder={placeholder}
         autoComplete={autoComplete}
         type={type}
       />
-      {error && <p className="field__caption">{error}</p>}
+      {error && <p className={styles.field__caption}>{error}</p>}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import "./Button.css";
+import styles from "./Button.module.scss";
 
 import type { ComponentProps } from "react";
 
@@ -8,7 +8,11 @@ const Button = (props: ButtonProps) => {
   const { className = "", type = "button", children, ...buttonProps } = props;
 
   return (
-    <button {...buttonProps} className={`button ${className}`} type={type}>
+    <button
+      {...buttonProps}
+      className={`${styles.button} ${className}`}
+      type={type}
+    >
       {children}
     </button>
   );
