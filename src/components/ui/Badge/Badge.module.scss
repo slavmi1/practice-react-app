@@ -1,0 +1,74 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  width: fit-content;
+  min-width: 150px;
+
+  padding: 8px 16px;
+  border: 1px solid;
+  border-radius: 10px;
+
+  font-weight: 600;
+  line-height: 1.25;
+
+  white-space: nowrap;
+}
+
+.icon_wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+}
+
+.badge_icon {
+  display: block;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.confirmed {
+  color: #7a3f1d;
+  background-color: #fff3df;
+  border-color: #e8bd7a;
+
+  .icon_wrapper {
+    background-color: #7a3f1d;
+  }
+}
+
+.new {
+  color: #7a4a22;
+  background-color: #fff6e8;
+  border-color: #e5c894;
+
+  .icon_wrapper {
+    background-color: #7a4a22;
+  }
+}
+
+.completed {
+  color: #2f7d46;
+  background-color: #eaf7ec;
+  border-color: #98d0a4;
+
+  .icon_wrapper {
+    background-color: #2f7d46;
+  }
+}
+
+.cancelled {
+  color: #c94a3a;
+  background-color: #fdeaea;
+  border-color: #e7a4a0;
+
+  .icon_wrapper {
+    background-color: #c94a3a;
+  }
+}
