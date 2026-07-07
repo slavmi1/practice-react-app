@@ -1,0 +1,76 @@
+.register {
+  min-height: calc(100vh - 97px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 48px 20px;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+  max-width: 520px;
+}
+
+.title {
+  margin: 0 0 12px;
+
+  color: #171717;
+  font-family: "Oswald", sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  max-width: 360px;
+  margin: 0 auto 32px;
+
+  color: #5f564f;
+  font-size: 1.125rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  width: 100%;
+  padding: 32px;
+
+  border: 1px solid #e3d8cc;
+  border-radius: 18px;
+
+  background-color: #fffdf9;
+  box-shadow: 0 8px 24px rgba(60, 40, 25, 0.06);
+}
+
+.submitButton {
+  width: 100%;
+}
+
+.registerText {
+  margin: 24px 0 0;
+
+  color: #5f564f;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.authLink {
+  color: #5a2e16;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.authLink:hover {
+  text-decoration: underline;
+}
