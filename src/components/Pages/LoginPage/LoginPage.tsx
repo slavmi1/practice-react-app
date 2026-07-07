@@ -6,6 +6,7 @@ import { loginSchema } from "../../../Schemas/authSchemas";
 import styles from "./LoginPage.module.scss";
 import Button from "../../UI/Button/Button";
 import Field from "../../UI/Field/Field";
+import AuthLayout from "../../Layouts/AuthLayout/AuthLayout";
 
 type LoginFormData = {
   email: string;
@@ -27,52 +28,48 @@ const LoginPage = () => {
   };
 
   return (
-    <main className={styles.login}>
-      <section className={styles.card}>
-        <h1 className={styles.title}>Авторизация</h1>
-
-        <p className={styles.subtitle}>
-          Войдите в аккаунт, чтобы посмотреть свои записи
-        </p>
-
-        <form
-          className={styles.form}
-          onSubmit={handleSubmit(onSubmit)}
-          noValidate
-        >
-          <Field
-            id="email"
-            label="Email"
-            placeholder="Введите email"
-            autoComplete="email"
-            type="email"
-            error={errors.email?.message}
-            {...register("email")}
-          />
-
-          <Field
-            id="password"
-            label="Пароль"
-            placeholder="Введите пароль"
-            autoComplete="current-password"
-            type="password"
-            error={errors.password?.message}
-            {...register("password")}
-          />
-
-          <Button className={styles.submitButton} type="submit">
-            Войти
-          </Button>
-        </form>
-
-        <p className={styles.registerText}>
+    <AuthLayout
+      title="Авторизация"
+      subtitle="Войдите в аккаунт, чтобы посмотреть свои записи"
+      footer={
+        <>
           Нет аккаунта?{" "}
           <Link to="/register" className={styles.authLink}>
             Зарегистрироваться
           </Link>
-        </p>
-      </section>
-    </main>
+        </>
+      }
+    >
+      <form
+        className={styles.form}
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate
+      >
+        <Field
+          id="email"
+          label="Email"
+          placeholder="Введите email"
+          autoComplete="email"
+          type="email"
+          error={errors.email?.message}
+          {...register("email")}
+        />
+
+        <Field
+          id="password"
+          label="Пароль"
+          placeholder="Введите пароль"
+          autoComplete="current-password"
+          type="password"
+          error={errors.password?.message}
+          {...register("password")}
+        />
+
+        <Button className={styles.submitButton} type="submit">
+          Войти
+        </Button>
+      </form>
+    </AuthLayout>
   );
 };
 
