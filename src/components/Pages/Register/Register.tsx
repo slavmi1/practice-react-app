@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { registerSchema } from "../../../Schemas/authSchemas";
-import styles from "./RegisterPage.module.scss";
+import styles from "./Register.module.scss";
 import Button from "../../UI/Button/Button";
 import Field from "../../UI/Field/Field";
 import AuthLayout from "../../Layouts/AuthLayout/AuthLayout";
@@ -16,7 +16,7 @@ type RegisterFormData = {
   confirmPassword: string;
 };
 
-const RegisterPage = () => {
+const Register = () => {
   const {
     register,
     handleSubmit,
@@ -104,4 +104,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default Register;

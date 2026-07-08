@@ -1,19 +1,20 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { loginSchema } from "../../../Schemas/authSchemas";
-import styles from "./LoginPage.module.scss";
+import styles from "./Login.module.scss";
 import Button from "../../UI/Button/Button";
 import Field from "../../UI/Field/Field";
 import AuthLayout from "../../Layouts/AuthLayout/AuthLayout";
+import { useAuth } from "../../../Context/AuthContext/useAuth";
 
 type LoginFormData = {
   email: string;
   password: string;
 };
 
-const LoginPage = () => {
+const Login = () => {
   // Достаем из useForm только то, что нужно
   const {
     register, // Подключает input к React Hook Form
@@ -23,14 +24,25 @@ const LoginPage = () => {
     resolver: yupResolver(loginSchema),
   });
 
+  const navigate = useNavigate();
+
+  const { login } = useAuth();
+
   const onSubmit = (data: LoginFormData) => {
-    console.log(data);
+    login({
+      id: "1",
+      name: "Егор",
+      email: data.email,
+      phone: "79999999999",
+    });
+
+    navigate("/profile");
   };
 
   return (
     <AuthLayout
       title="Авторизация"
-      subtitle="Войдите в аккаунт, чтобы посмотреть свои записи"
+      subtitle="Войдите в аккаунт, чтобы управлять своими записями онлайн"
       footer={
         <>
           Нет аккаунта?{" "}
@@ -73,4 +85,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;

@@ -1,8 +1,11 @@
 import { Route, Routes } from "react-router";
-import HomePage from "./Components/Pages/HomePage/HomePage";
-import LoginPage from "./Components/Pages/LoginPage/LoginPage";
-import RegisterPage from "./Components/Pages/RegisterPage/RegisterPage";
+
+import Home from "./Components/Pages/Home/Home";
+import Login from "./Components/Pages/Login/LoginPage";
+import Register from "./Components/Pages/Register/Register";
 import Header from "./Components/Widgets/Header/Header";
+import Profile from "./Components/Pages/Profile/Profile";
+import ProtectedRoute from "./Components/Layouts/ProtectedRoute/ProtectedRoute";
 
 const App = () => {
   return (
@@ -10,9 +13,17 @@ const App = () => {
       <Header />
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </>
   );
