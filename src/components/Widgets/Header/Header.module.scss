@@ -30,14 +30,46 @@
 }
 
 .link {
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+
   font-size: 1.5rem;
   font-weight: 600;
   color: #14120f;
   text-decoration: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    border-color: #c9a06d;
+    box-shadow: 0 0 0 3px rgba(201, 160, 109, 0.25);
+  }
 }
 
 .activeLink {
   text-decoration: underline;
   text-decoration-color: #9a5a2f;
   text-underline-offset: 6px;
+}
+
+.exitButton {
+  box-sizing: border-box;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+
+  background-color: inherit;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    border-color: #c9a06d;
+    box-shadow: 0 0 0 3px rgba(201, 160, 109, 0.25);
+  }
 }

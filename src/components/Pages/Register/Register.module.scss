@@ -29,8 +29,21 @@
   color: #5a2e16;
   font-weight: 700;
   text-decoration: none;
-}
 
-.authLink:hover {
-  text-decoration: underline;
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 2px;
+    text-decoration-color: #c9a06d;
+  }
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 2px;
+  }
 }
