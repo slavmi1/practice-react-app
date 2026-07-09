@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -7,6 +7,7 @@ import styles from "./Register.module.scss";
 import Button from "../../UI/Button/Button";
 import Field from "../../UI/Field/Field";
 import AuthLayout from "../../Layouts/AuthLayout/AuthLayout";
+import { useAuth } from "../../../Context/AuthContext/useAuth";
 
 type RegisterFormData = {
   name: string;
@@ -25,8 +26,18 @@ const Register = () => {
     resolver: yupResolver(registerSchema),
   });
 
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   const onSubmit = (data: RegisterFormData) => {
-    console.log(data);
+    login({
+      id: crypto.randomUUID(),
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+    });
+
+    navigate("/profile");
   };
 
   return (

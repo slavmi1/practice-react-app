@@ -1,9 +1,19 @@
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 
-import logo from "../../../assets/logo.png";
 import styles from "./Header.module.scss";
+import { useAuth } from "../../../Context/AuthContext/useAuth";
+import logo from "../../../assets/logo.png";
+import exitIcon from "../../../assets/icons/exit.svg";
 
 const Header = () => {
+  const { isAuth, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate("/", { replace: true });
+    logout();
+  };
+
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
@@ -26,22 +36,58 @@ const Header = () => {
         >
           Главная
         </NavLink>
+
         <NavLink
-          to="/login"
+          to="/services"
           className={({ isActive }) =>
             `${styles.link} ${isActive ? styles.activeLink : ""}`
           }
         >
-          Войти
+          Услуги и запись
         </NavLink>
-        <NavLink
-          to="/register"
-          className={({ isActive }) =>
-            `${styles.link} ${isActive ? styles.activeLink : ""}`
-          }
-        >
-          Регистрация
-        </NavLink>
+
+        {isAuth && (
+          <>
+            <NavLink
+              to="/profile"
+              className={({ isActive }) =>
+                `${styles.link} ${isActive ? styles.activeLink : ""}`
+              }
+            >
+              Личный кабинет
+            </NavLink>
+
+            <button
+              type="button"
+              onClick={handleLogout}
+              className={styles.exitButton}
+            >
+              <img src={exitIcon} />
+            </button>
+          </>
+        )}
+
+        {!isAuth && (
+          <>
+            <NavLink
+              to="/login"
+              className={({ isActive }) =>
+                `${styles.link} ${isActive ? styles.activeLink : ""}`
+              }
+            >
+              Вход
+            </NavLink>
+
+            <NavLink
+              to="/register"
+              className={({ isActive }) =>
+                `${styles.link} ${isActive ? styles.activeLink : ""}`
+              }
+            >
+              Регистрация
+            </NavLink>
+          </>
+        )}
       </nav>
     </header>
   );

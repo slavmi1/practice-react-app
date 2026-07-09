@@ -24,9 +24,8 @@ const Login = () => {
     resolver: yupResolver(loginSchema),
   });
 
-  const navigate = useNavigate();
-
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const onSubmit = (data: LoginFormData) => {
     login({
