@@ -1,9 +1,7 @@
-import Button from "../Button/Button";
-import Card from "../Card/Card";
-
 import styles from "./ServiceCard.module.scss";
-
 import clockIcon from "../../../assets/service_icons/clock.svg";
+import Card from "../../UI/Card/Card";
+import Button from "../../UI/Button/Button";
 
 type ServiceCardProps = {
   icon: string;

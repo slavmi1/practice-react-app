@@ -1,0 +1,48 @@
+.homeAdvantages {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 28px;
+}
+
+.img {
+  flex: 0 0 120px;
+  width: 120px;
+  height: 120px;
+
+  padding: 16px;
+  border-radius: 14px;
+
+  background-color: #e3d8cc;
+  object-fit: contain;
+}
+
+.rightContent {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.title {
+  margin: 0;
+
+  font-family: "Oswald", sans-serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #14120f;
+  text-transform: uppercase;
+}
+
+.text {
+  margin: 0;
+
+  font-size: 1.05rem;
+  line-height: 1.45;
+}
