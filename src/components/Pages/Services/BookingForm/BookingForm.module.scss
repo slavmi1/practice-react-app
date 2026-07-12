@@ -1,0 +1,99 @@
+.bookingForm {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 20px;
+
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+
+  background-color: #e3d8cc;
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+}
+
+.title {
+  margin: 0;
+
+  font-family: "Oswald", sans-serif;
+  font-size: 2rem;
+  color: #14120f;
+  text-transform: uppercase;
+}
+
+.formContent {
+  padding: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  margin-bottom: 15px;
+}
+
+.dateTime {
+  display: flex;
+  gap: 40px;
+}
+
+.dateTimeField {
+  flex: 1;
+}
+
+.button {
+  margin-top: 5px;
+}
+
+.mark {
+  margin: 0;
+}
+
+.selectedBlock {
+  display: flex;
+  align-items: center;
+
+  background-color: #f6efe6;
+
+  & span {
+    position: relative;
+    padding: 0 24px;
+
+    font-size: 1.2rem;
+  }
+
+  & span:first-child {
+    padding-left: 0;
+  }
+
+  & span:not(:last-child)::after {
+    content: "";
+
+    position: absolute;
+    top: 50%;
+    right: 0;
+
+    width: 3px;
+    height: 30px;
+
+    background-color: #cbbbaa;
+    transform: translateY(-50%);
+  }
+
+  & .selectedParams {
+    color: #171717;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+}

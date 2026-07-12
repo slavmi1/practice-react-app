@@ -10,11 +10,20 @@ type SelectOption = {
 type SelectProps = ComponentProps<"select"> & {
   label?: string;
   error?: string;
+  placeholder?: string;
   options: SelectOption[];
 };
 
 const Select = (props: SelectProps) => {
-  const { label, error, options, id, ...selectProps } = props;
+  const {
+    label,
+    error,
+    options,
+    id,
+    placeholder = "Выберите значение",
+    defaultValue = "",
+    ...selectProps
+  } = props;
 
   const selectClassName = error
     ? `${styles.select__input} ${styles.select__input_error}`
@@ -27,7 +36,16 @@ const Select = (props: SelectProps) => {
           {label}
         </label>
       )}
-      <select {...selectProps} className={selectClassName} id={id}>
+      <select
+        {...selectProps}
+        className={selectClassName}
+        id={id}
+        defaultValue={defaultValue}
+      >
+        <option value="" disabled>
+          {placeholder}
+        </option>
+
         {options.map((option) => (
           <option
             key={option.value}

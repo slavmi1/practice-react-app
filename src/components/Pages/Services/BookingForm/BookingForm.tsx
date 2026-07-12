@@ -1,0 +1,113 @@
+import Button from "../../../UI/Button/Button";
+import Card from "../../../UI/Card/Card";
+import Field from "../../../UI/Field/Field";
+import Select from "../../../UI/Select/Select";
+
+import type { Service } from "../types";
+
+import styles from "./BookingForm.module.scss";
+import calenderLight from "../../../../assets/icons/calendar_light.svg";
+import calenderDark from "../../../../assets/icons/calendar_dark.svg";
+
+type BookingFormProps = {
+  services: Service[];
+  selectedServiceId: string;
+  onServiceSelect: (serviceId: string) => void;
+};
+
+const BookingForm = (props: BookingFormProps) => {
+  const { services, selectedServiceId, onServiceSelect } = props;
+
+  const serviceOptions = services.map((service) => ({
+    value: String(service.id),
+    label: service.title,
+  }));
+  const timeOptions = Array.from({ length: 12 }, (_, index) => {
+    const hour = index + 9;
+    const time = `${hour}:00`;
+
+    return {
+      value: time,
+      label: time,
+    };
+  });
+
+  const selectedService = services.find(
+    (service) => String(service.id) === selectedServiceId,
+  );
+
+  return (
+    <Card className={styles.bookingForm}>
+      <div className={styles.header}>
+        <img className={styles.icon} src={calenderDark} />
+        <h2 className={styles.title}>Запись онлайн</h2>
+      </div>
+
+      <div className={styles.formContent}>
+        <form className={styles.form}>
+          <Select
+            id="service"
+            label="Услуга"
+            placeholder="Выберите услугу"
+            required
+            options={serviceOptions}
+            value={selectedServiceId}
+            onChange={(e) => onServiceSelect(String(e.target.value))}
+          />
+          <Field id="name" label="Имя" placeholder="Введите ваше имя" />
+          <Field
+            id="phone"
+            label="Телефон"
+            placeholder="+79999999999"
+            type="tel"
+          />
+
+          <div className={styles.dateTime}>
+            <div className={styles.dateTimeField}>
+              <Field
+                className={styles.dateField}
+                id="date"
+                label="Дата"
+                type="date"
+                required
+              />
+            </div>
+
+            <div className={styles.dateTimeField}>
+              <Select
+                className={styles.timeField}
+                id="time"
+                label="Время"
+                placeholder="Выберите время"
+                required
+                options={timeOptions}
+              />
+            </div>
+          </div>
+
+          <Button icon={calenderLight} className={styles.button} type="submit">
+            Записаться
+          </Button>
+
+          <p className={styles.mark}>
+            Мы свяжемся с вами для подтверждения записи.
+          </p>
+        </form>
+
+        {selectedService && (
+          <Card className={styles.selectedBlock}>
+            <span>Выбрано: {selectedService.title}</span>
+            <span className={styles.selectedParams}>
+              {selectedService.duration} мин
+            </span>
+            <span className={styles.selectedParams}>
+              {selectedService.price} ₽
+            </span>
+          </Card>
+        )}
+      </div>
+    </Card>
+  );
+};
+
+export default BookingForm;

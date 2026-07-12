@@ -1,8 +1,10 @@
-import styles from "./HomeHero.module.scss";
-import heroImg from "../../../../assets/images/HomeHero.png";
-import calenderIcon from "../../../../assets/icons/calendar.svg";
 import Button from "../../../UI/Button/Button";
 import Card from "../../../UI/Card/Card";
+
+import styles from "./HomeHero.module.scss";
+import heroImg from "../../../../assets/images/HomeHero.png";
+import calenderIcon from "../../../../assets/icons/calendar_light.svg";
+
 import { useNavigate } from "react-router";
 
 const HomeHero = () => {

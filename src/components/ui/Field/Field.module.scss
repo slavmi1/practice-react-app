@@ -16,6 +16,7 @@
   font-size: 1.125rem;
   line-height: 2rem;
 
+  height: 68px;
   padding: 16px;
   border-radius: 8px;
   border: 2px solid #d8cec3;
@@ -43,6 +44,10 @@
     background-color: #f3efea;
     border-color: #f3efea;
     cursor: not-allowed;
+  }
+
+  &:invalid {
+    color: #8b8178;
   }
 }
 

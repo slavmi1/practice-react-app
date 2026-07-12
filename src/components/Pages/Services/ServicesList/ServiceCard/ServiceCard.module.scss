@@ -1,3 +1,8 @@
+.serviceCard_selected {
+  outline: 2px solid #5b341d; // аналог border, чтобы сетка не прыгала
+  outline-offset: -1px;
+}
+
 .top {
   display: flex;
   align-items: center;
@@ -30,6 +35,22 @@
 
   font-size: 1.125rem;
   line-height: 1.4;
+}
+
+.selectedMark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-left: auto;
+  align-self: flex-start;
+
+  width: 32px;
+  height: 32px;
+  padding: 5px;
+
+  background-color: #5a2e16;
+  border-radius: 50%;
 }
 
 .divider {

@@ -1,0 +1,44 @@
+.services {
+  padding: 40px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.topCard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  padding: 20px 24px;
+}
+
+.title {
+  margin: 0;
+
+  font-family: "Oswald", sans-serif;
+  font-size: 4rem;
+  line-height: 1;
+  color: #14120f;
+  text-transform: uppercase;
+}
+
+.underTitle {
+  margin: 0;
+
+  font-size: 1.2rem;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(420px, 32vw, 650px);
+  gap: 40px;
+  align-items: start;
+}
+
+@media (max-width: 1200px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+}
