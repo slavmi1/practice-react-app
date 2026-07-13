@@ -1,13 +1,18 @@
+import { Controller, useForm, useWatch } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
 import Button from "../../../UI/Button/Button";
 import Card from "../../../UI/Card/Card";
 import Field from "../../../UI/Field/Field";
 import Select from "../../../UI/Select/Select";
 
 import type { Service } from "../types";
+import { type BookingFormData, bookSchema } from "./bookSchema";
 
 import styles from "./BookingForm.module.scss";
 import calenderLight from "../../../../assets/icons/calendar_light.svg";
 import calenderDark from "../../../../assets/icons/calendar_dark.svg";
+import { useEffect } from "react";
 
 type BookingFormProps = {
   services: Service[];
@@ -36,6 +41,37 @@ const BookingForm = (props: BookingFormProps) => {
     (service) => String(service.id) === selectedServiceId,
   );
 
+  const {
+    register,
+    handleSubmit,
+    control,
+    setValue,
+    formState: { errors },
+  } = useForm<BookingFormData>({
+    resolver: yupResolver(bookSchema),
+    defaultValues: {
+      service: undefined,
+      name: "",
+      phone: "",
+      time: "",
+    },
+  });
+
+  const onSubmit = (data: BookingFormData) => {
+    console.log(data);
+  };
+
+  const selectedDateWatch = useWatch({ control, name: "date" });
+  const selectedTimeWatch = useWatch({ control, name: "time" });
+
+  useEffect(() => {
+    if (selectedServiceId) {
+      setValue("service", Number(selectedServiceId), {
+        shouldValidate: true,
+      });
+    }
+  }, [selectedServiceId, setValue]);
+
   return (
     <Card className={styles.bookingForm}>
       <div className={styles.header}>
@@ -44,22 +80,42 @@ const BookingForm = (props: BookingFormProps) => {
       </div>
 
       <div className={styles.formContent}>
-        <form className={styles.form}>
-          <Select
-            id="service"
-            label="Услуга"
-            placeholder="Выберите услугу"
-            required
-            options={serviceOptions}
-            value={selectedServiceId}
-            onChange={(e) => onServiceSelect(String(e.target.value))}
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+          <Controller
+            name="service"
+            control={control}
+            render={({ field }) => (
+              <Select
+                id="service"
+                label="Услуга"
+                placeholder="Выберите услугу"
+                isPlaceholder={!field.value}
+                options={serviceOptions}
+                error={errors.service?.message}
+                value={field.value ? String(field.value) : ""}
+                onChange={(event) => {
+                  const serviceId = event.target.value;
+
+                  field.onChange(Number(serviceId));
+                  onServiceSelect(serviceId);
+                }}
+              />
+            )}
           />
-          <Field id="name" label="Имя" placeholder="Введите ваше имя" />
+          <Field
+            id="name"
+            label="Имя"
+            placeholder="Введите ваше имя"
+            {...register("name")}
+            error={errors.name?.message}
+          />
           <Field
             id="phone"
             label="Телефон"
             placeholder="+79999999999"
             type="tel"
+            {...register("phone")}
+            error={errors.phone?.message}
           />
 
           <div className={styles.dateTime}>
@@ -69,7 +125,9 @@ const BookingForm = (props: BookingFormProps) => {
                 id="date"
                 label="Дата"
                 type="date"
-                required
+                isPlaceholder={!selectedDateWatch}
+                {...register("date")}
+                error={errors.date?.message}
               />
             </div>
 
@@ -79,8 +137,10 @@ const BookingForm = (props: BookingFormProps) => {
                 id="time"
                 label="Время"
                 placeholder="Выберите время"
-                required
+                isPlaceholder={!selectedTimeWatch}
                 options={timeOptions}
+                {...register("time")}
+                error={errors.time?.message}
               />
             </div>
           </div>

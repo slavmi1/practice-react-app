@@ -18,7 +18,7 @@ export const registerSchema = yup.object({
     .string()
     .trim()
     .required("Введите имя")
-    .max(30, "Имя не должно быть длиннее 50 символов"),
+    .max(30, "Имя не должно быть длиннее 30 символов"),
 
   phone: yup
     .string()

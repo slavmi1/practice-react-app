@@ -11,6 +11,7 @@ type SelectProps = ComponentProps<"select"> & {
   label?: string;
   error?: string;
   placeholder?: string;
+  isPlaceholder?: boolean;
   options: SelectOption[];
 };
 
@@ -21,13 +22,15 @@ const Select = (props: SelectProps) => {
     options,
     id,
     placeholder = "Выберите значение",
-    defaultValue = "",
+    isPlaceholder,
     ...selectProps
   } = props;
 
-  const selectClassName = error
-    ? `${styles.select__input} ${styles.select__input_error}`
-    : styles.select__input;
+  const selectClassName = `
+    ${styles.select__input}
+    ${error ? styles.select__input_error : ""}
+    ${isPlaceholder ? styles.select__input_placeholder : ""}
+  `;
 
   return (
     <div className={styles.select}>
@@ -36,12 +39,7 @@ const Select = (props: SelectProps) => {
           {label}
         </label>
       )}
-      <select
-        {...selectProps}
-        className={selectClassName}
-        id={id}
-        defaultValue={defaultValue}
-      >
+      <select {...selectProps} className={selectClassName} id={id}>
         <option value="" disabled>
           {placeholder}
         </option>

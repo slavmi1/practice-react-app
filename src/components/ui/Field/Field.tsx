@@ -5,6 +5,7 @@ import type { ComponentProps } from "react";
 type InputProps = ComponentProps<"input"> & {
   label?: string;
   error?: string;
+  isPlaceholder?: boolean;
 };
 
 const Field = (props: InputProps) => {
@@ -16,12 +17,15 @@ const Field = (props: InputProps) => {
     autoComplete = "off",
     type = "text",
     error,
+    isPlaceholder,
     ...inputProps
   } = props;
 
-  const inputClassName = error
-    ? `${styles.field__input} ${styles.field__input_error}`
-    : styles.field__input;
+  const inputClassName = `
+    ${styles.field__input}
+    ${error ? styles.field__input_error : ""}
+    ${isPlaceholder ? styles.field__input_placeholder : ""}
+  `;
 
   return (
     <div className={`${styles.field} ${className}`}>
