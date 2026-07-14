@@ -1,0 +1,54 @@
+.bookingCard {
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr) 2fr;
+  align-items: center;
+
+  min-height: 138px;
+  padding: 2px 24px;
+}
+
+.cardPart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  padding: 20px 24px;
+
+  &:not(:last-child) {
+    border-right: 2px solid #e0d6cc;
+  }
+
+  &:last-child {
+    gap: 12px;
+  }
+}
+
+.title {
+  margin: 0;
+
+  font-family: "Oswald", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.param,
+.value {
+  margin: 0;
+}
+
+.param {
+  color: #8b8178;
+  font-size: 1.125rem;
+}
+
+.value {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.button {
+  height: 40px;
+}

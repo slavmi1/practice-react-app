@@ -1,0 +1,55 @@
+.userInfoCard {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+
+  padding: 24px 40px;
+}
+
+.avatar {
+  flex-shrink: 0;
+
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+
+  object-fit: cover;
+}
+
+.userInfo {
+  min-width: 280px;
+}
+
+.name {
+  margin: 0 0 16px;
+
+  font-family: "Oswald", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.contact {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  margin-top: 10px;
+
+  img {
+    width: 22px;
+    height: 22px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+}
+
+.statsContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+
+  margin-left: auto;
+}

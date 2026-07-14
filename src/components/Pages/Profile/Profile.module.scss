@@ -1,0 +1,22 @@
+.profile {
+  padding: 40px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin: 0 0 20px;
+
+  font-family: "Oswald", sans-serif;
+  font-size: 4rem;
+  line-height: 1;
+  color: #14120f;
+  text-transform: uppercase;
+}
+
+.underTitle {
+  margin: 0 0 20px;
+
+  font-size: 1.2rem;
+}
