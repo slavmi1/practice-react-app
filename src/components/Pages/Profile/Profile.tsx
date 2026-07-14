@@ -60,7 +60,7 @@ const Profile = () => {
       </p>
       <UserInfoCard />
 
-      <h2>Мои записи</h2>
+      <h2 className={styles.myBookings}>Мои записи</h2>
       <BookingsList bookings={bookings} />
       <div></div>
     </div>
