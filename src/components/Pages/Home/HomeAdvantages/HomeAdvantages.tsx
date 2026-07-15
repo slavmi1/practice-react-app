@@ -2,7 +2,7 @@ import Card from "../../../UI/Card/Card";
 import styles from "./HomeAdvantages.module.scss";
 import mastersImg from "../../../../assets/images/mastersImg.png";
 import appointmentImg from "../../../../assets/images/calendar.png";
-import haircutsImg from "../../../../assets/images/service-images/mansHaircut.png";
+import haircutsImg from "/service-images/mansHaircut.png";
 
 const advantages = [
   {

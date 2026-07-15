@@ -1,0 +1,53 @@
+{
+  "users": [],
+  "services": [
+    {
+      "_id": 1,
+      "title": "Мужская стрижка",
+      "description": "Классическая или современная стрижка",
+      "duration": 45,
+      "price": 1200,
+      "icon": "/service-images/mansHaircut.png"
+    },
+    {
+      "_id": 2,
+      "title": "Оформление бороды",
+      "description": "Моделирование и уход за бородой",
+      "duration": 30,
+      "price": 800,
+      "icon": "/service-images/beardDecor.png"
+    },
+    {
+      "_id": 3,
+      "title": "Стрижка + борода",
+      "description": "Комплексная услуга для завершённого образа",
+      "duration": 60,
+      "price": 1800,
+      "icon": "/service-images/hairAndBeard.png"
+    },
+    {
+      "_id": 4,
+      "title": "Детская стрижка",
+      "description": "Аккуратная стрижка для мальчиков",
+      "duration": 40,
+      "price": 900,
+      "icon": "/service-images/kidsHaircut.png"
+    },
+    {
+      "_id": 5,
+      "title": "Укладка",
+      "description": "Финальная укладка с профессиональными средствами",
+      "duration": 20,
+      "price": 600,
+      "icon": "/service-images/hairDryer.png"
+    }
+  ],
+  "bookings": [
+    {
+      "serviceId": "2",
+      "date": "2026-08-29",
+      "time": "15:00",
+      "id": 1
+    }
+  ]
+}

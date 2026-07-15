@@ -1,8 +1,8 @@
+import type { Booking } from "../../../../../Types/booking";
 import Badge from "../../../../UI/Badge/Badge";
 import Button from "../../../../UI/Button/Button";
 import Card from "../../../../UI/Card/Card";
 
-import type { Booking } from "../../types";
 import styles from "./BookingCard.module.scss";
 
 type BookingCardProps = {

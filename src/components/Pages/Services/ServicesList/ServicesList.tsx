@@ -15,14 +15,14 @@ const ServicesList = (props: ServicesListProps) => {
     <div className={styles.servicesList}>
       {services.map((service) => (
         <ServiceCard
-          key={service.id}
+          key={service._id}
           icon={service.icon}
           title={service.title}
           description={service.description}
           duration={service.duration}
           price={service.price}
-          isSelected={selectedServiceId === String(service.id)}
-          onSelect={() => onServiceSelect(String(service.id))}
+          isSelected={selectedServiceId === String(service._id)}
+          onSelect={() => onServiceSelect(String(service._id))}
         />
       ))}
     </div>

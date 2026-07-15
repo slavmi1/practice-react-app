@@ -3,53 +3,22 @@ import Card from "../../UI/Card/Card";
 import BookingForm from "./BookingForm/BookingForm";
 import ServicesList from "./ServicesList/ServicesList";
 import type { Service } from "./types";
-import { useState } from "react";
-
-const services: Service[] = [
-  {
-    id: 1,
-    title: "Мужская стрижка",
-    description: "Классическая или современная стрижка",
-    duration: 45,
-    price: 1200,
-    icon: "haircut",
-  },
-  {
-    id: 2,
-    title: "Оформление бороды",
-    description: "Моделирование и уход за бородой",
-    duration: 30,
-    price: 800,
-    icon: "beard",
-  },
-  {
-    id: 3,
-    title: "Стрижка + борода",
-    description: "Комплексная услуга для завершённого образа",
-    duration: 60,
-    price: 1800,
-    icon: "haircut-and-beard",
-  },
-  {
-    id: 4,
-    title: "Детская стрижка",
-    description: "Аккуратная стрижка для мальчиков",
-    duration: 40,
-    price: 900,
-    icon: "kids-haircut",
-  },
-  {
-    id: 5,
-    title: "Укладка",
-    description: "Финальная укладка с профессиональными средствами",
-    duration: 20,
-    price: 600,
-    icon: "styling",
-  },
-];
+import { useEffect, useState } from "react";
+import { getServices } from "../../../Api/servicesApi";
 
 const Services = () => {
+  const [services, setServices] = useState<Service[]>([]);
   const [selectedServiceId, setSelectedServiceId] = useState("");
+
+  useEffect(() => {
+    const loadServices = async () => {
+      const services = await getServices();
+
+      setServices(services);
+    };
+
+    loadServices();
+  }, []);
 
   return (
     <section className={styles.services}>

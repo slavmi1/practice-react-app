@@ -2,51 +2,47 @@ import UserInfoCard from "./UserInfoCard/UserInfoCard";
 import BookingsList from "./BookingsList/BookingsList";
 
 import styles from "./Profile.module.scss";
+import type { Booking } from "../../../Types/booking";
 
 const bookings: Booking[] = [
   {
-    id: 1,
-    title: "Мужская стрижка",
+    _id: "1",
+    userId: "1",
+    serviceId: "1",
     date: "2026-07-16",
     time: "10:00",
-    duration: 45,
-    price: 1200,
     status: "confirmed",
   },
   {
-    id: 2,
-    title: "Оформление бороды",
+    _id: "2",
+    userId: "1",
+    serviceId: "1",
     date: "2026-07-18",
     time: "14:30",
-    duration: 30,
-    price: 800,
     status: "new",
   },
   {
-    id: 3,
-    title: "Стрижка + борода",
+    _id: "3",
+    userId: "1",
+    serviceId: "1",
     date: "2026-07-10",
     time: "12:00",
-    duration: 60,
-    price: 1800,
     status: "completed",
   },
   {
-    id: 4,
-    title: "Королевское бритьё",
+    _id: "4",
+    userId: "1",
+    serviceId: "1",
     date: "2026-07-20",
     time: "17:00",
-    duration: 40,
-    price: 1000,
     status: "cancelled",
   },
   {
-    id: 5,
-    title: "Детская стрижка",
+    _id: "5",
+    userId: "1",
+    serviceId: "1",
     date: "2026-07-22",
     time: "11:30",
-    duration: 30,
-    price: 900,
     status: "confirmed",
   },
 ];

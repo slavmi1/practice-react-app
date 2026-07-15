@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -8,11 +9,13 @@ import Select from "../../../UI/Select/Select";
 
 import type { Service } from "../types";
 import { type BookingFormData, bookSchema } from "./bookSchema";
+import type { CreateBookingData } from "../../../../Types/booking";
+
+import { createBooking } from "../../../../Api/bookingApi";
 
 import styles from "./BookingForm.module.scss";
 import calenderLight from "../../../../assets/icons/calendar_light.svg";
 import calenderDark from "../../../../assets/icons/calendar_dark.svg";
-import { useEffect } from "react";
 
 type BookingFormProps = {
   services: Service[];
@@ -24,7 +27,7 @@ const BookingForm = (props: BookingFormProps) => {
   const { services, selectedServiceId, onServiceSelect } = props;
 
   const serviceOptions = services.map((service) => ({
-    value: String(service.id),
+    value: String(service._id),
     label: service.title,
   }));
   const timeOptions = Array.from({ length: 12 }, (_, index) => {
@@ -38,7 +41,7 @@ const BookingForm = (props: BookingFormProps) => {
   });
 
   const selectedService = services.find(
-    (service) => String(service.id) === selectedServiceId,
+    (service) => String(service._id) === selectedServiceId,
   );
 
   const {
@@ -57,8 +60,16 @@ const BookingForm = (props: BookingFormProps) => {
     },
   });
 
-  const onSubmit = (data: BookingFormData) => {
-    console.log(data);
+  const onSubmit = async (data: BookingFormData) => {
+    const bookingData: CreateBookingData = {
+      serviceId: String(data.service),
+      date: data.date.toISOString().split("T")[0], // обрезает время
+      time: data.time,
+    };
+
+    const booking = await createBooking(bookingData);
+
+    console.log(booking);
   };
 
   const selectedDateWatch = useWatch({ control, name: "date" });
