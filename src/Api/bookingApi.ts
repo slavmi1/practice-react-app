@@ -1,6 +1,12 @@
 import type { Booking, CreateBookingData } from "../Types/booking";
 import api from "./api";
 
+export const getBookings = async (): Promise<Booking[]> => {
+  const response = await api.get<Booking[]>("/bookings");
+
+  return response.data;
+};
+
 export const createBooking = async (
   data: CreateBookingData,
 ): Promise<Booking> => {
@@ -9,8 +15,8 @@ export const createBooking = async (
   return response.data;
 };
 
-export const getBookings = async (): Promise<Booking[]> => {
-  const response = await api.get<Booking[]>("/bookings");
+export const cancelBooking = async (bookingId: string): Promise<Booking> => {
+  const response = await api.patch<Booking>(`/bookings/${bookingId}/cancel`);
 
   return response.data;
 };

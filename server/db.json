@@ -66,7 +66,7 @@
       "serviceId": "1",
       "date": "2026-08-29",
       "time": "9:00",
-      "status": "new"
+      "status": "cancelled"
     },
     {
       "_id": "58a71092-a032-4696-9b36-8e8d9648e6ae",
@@ -75,6 +75,30 @@
       "date": "2026-07-16",
       "time": "13:00",
       "status": "completed"
+    },
+    {
+      "_id": "6ca8806c-1423-4317-b4b8-8810707ea347",
+      "userId": "93d6736f-4be8-4b93-9180-580fa81bab45",
+      "serviceId": "2",
+      "date": "2026-07-15",
+      "time": "14:00",
+      "status": "cancelled"
+    },
+    {
+      "_id": "3a39cb24-b031-4b34-86e1-d6534a7497c1",
+      "userId": "93d6736f-4be8-4b93-9180-580fa81bab45",
+      "serviceId": "4",
+      "date": "2026-07-15",
+      "time": "15:00",
+      "status": "cancelled"
+    },
+    {
+      "_id": "7c3edc37-d82f-481d-ad3e-287ebf315cd0",
+      "userId": "93d6736f-4be8-4b93-9180-580fa81bab45",
+      "serviceId": "5",
+      "date": "2026-07-16",
+      "time": "14:00",
+      "status": "cancelled"
     }
   ]
 }

@@ -3,7 +3,7 @@ import type { Plugin } from "vite";
 
 import fs from "node:fs";
 
-import { getCookie, readJsonBody, sendJson, verifyToken } from "./auth";
+import { getCookie, readJsonBody, sendJson, verifyToken } from "./auth.ts";
 
 type CreateBookingBody = {
   serviceId?: string;
@@ -42,13 +42,19 @@ export function bookingsPlugin(): Plugin {
 
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
-        const isCreateBooking =
-          req.method === "POST" && req.url === "/api/bookings";
-
         const isGetBookings =
           req.method === "GET" && req.url === "/api/bookings";
 
-        if (!isCreateBooking && !isGetBookings) {
+        const isCreateBooking =
+          req.method === "POST" && req.url === "/api/bookings";
+
+        const cancelMatch = req.url?.match(
+          /^\/api\/bookings\/([^/]+)\/cancel$/,
+        );
+
+        const isCancelBooking = req.method === "PATCH" && Boolean(cancelMatch);
+
+        if (!isCreateBooking && !isGetBookings && !isCancelBooking) {
           next();
           return;
         }
@@ -82,32 +88,67 @@ export function bookingsPlugin(): Plugin {
           return;
         }
 
-        const body = await readJsonBody<CreateBookingBody>(req);
+        if (isCreateBooking) {
+          const body = await readJsonBody<CreateBookingBody>(req);
 
-        if (!body.serviceId || !body.date || !body.time) {
-          sendJson(res, 400, {
-            error: "Необходимо заполнить данные записи",
-          });
+          if (!body.serviceId || !body.date || !body.time) {
+            sendJson(res, 400, {
+              error: "Необходимо заполнить данные записи",
+            });
+            return;
+          }
+
+          const booking: DbBooking = {
+            _id: crypto.randomUUID(),
+            userId: payload.userId,
+            serviceId: body.serviceId,
+            date: body.date,
+            time: body.time,
+            status: "new",
+          };
+
+          const db = readDb();
+
+          db.bookings.push(booking);
+
+          writeDb(db);
+
+          sendJson(res, 201, booking);
           return;
         }
 
-        const booking: DbBooking = {
-          _id: crypto.randomUUID(),
-          userId: payload.userId,
-          serviceId: body.serviceId,
-          date: body.date,
-          time: body.time,
-          status: "new",
-        };
+        if (req.method === "PATCH" && cancelMatch) {
+          const bookingId = cancelMatch[1];
+          const db = readDb();
 
-        const db = readDb();
+          const booking = db.bookings.find(
+            (booking) =>
+              booking._id === bookingId && booking.userId === payload.userId,
+          );
 
-        db.bookings.push(booking);
+          if (!booking) {
+            sendJson(res, 404, {
+              error: "Запись не найдена",
+            });
+            return;
+          }
 
-        writeDb(db);
+          if (
+            booking.status === "completed" ||
+            booking.status === "cancelled"
+          ) {
+            sendJson(res, 400, {
+              error: "Эту запись нельзя отменить",
+            });
+            return;
+          }
 
-        sendJson(res, 201, booking);
-        return;
+          booking.status = "cancelled";
+          writeDb(db);
+
+          sendJson(res, 200, booking);
+          return;
+        }
       });
     },
   };

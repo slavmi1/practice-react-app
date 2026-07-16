@@ -7,9 +7,10 @@ import styles from "./BookingCard.module.scss";
 
 type BookingCardProps = {
   booking: BookingView;
+  onCancel: (bookingId: string) => void;
 };
 
-const BookingCard = ({ booking }: BookingCardProps) => {
+const BookingCard = ({ booking, onCancel }: BookingCardProps) => {
   return (
     <Card className={styles.bookingCard}>
       <div className={styles.cardPart}>
@@ -40,7 +41,13 @@ const BookingCard = ({ booking }: BookingCardProps) => {
         <Badge type={booking.status} />
 
         {(booking.status === "confirmed" || booking.status === "new") && (
-          <Button className={styles.button}>Отменить запись</Button>
+          <Button
+            className={styles.button}
+            type="button"
+            onClick={() => onCancel(booking._id)}
+          >
+            Отменить запись
+          </Button>
         )}
       </div>
     </Card>

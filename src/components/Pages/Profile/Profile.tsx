@@ -5,7 +5,7 @@ import styles from "./Profile.module.scss";
 import type { BookingView } from "../../../Types/booking";
 import { useAuth } from "../../../Context/AuthContext/useAuth";
 import { useEffect, useState } from "react";
-import { getBookings } from "../../../Api/bookingApi";
+import { cancelBooking, getBookings } from "../../../Api/bookingApi";
 import { getServices } from "../../../Api/servicesApi";
 
 const Profile = () => {
@@ -21,6 +21,21 @@ const Profile = () => {
   const completedBookings = bookings.filter(
     (booking) => booking.status === "completed",
   ).length;
+
+  const handleCancelBooking = async (bookingId: string) => {
+    const updatedBooking = await cancelBooking(bookingId);
+
+    setBookings((currentBookings) =>
+      currentBookings.map((booking) =>
+        booking._id === updatedBooking._id
+          ? {
+              ...booking,
+              status: updatedBooking.status,
+            }
+          : booking,
+      ),
+    );
+  };
 
   useEffect(() => {
     const loadBookings = async () => {
@@ -71,7 +86,7 @@ const Profile = () => {
       />
 
       <h2 className={styles.myBookings}>Мои записи</h2>
-      <BookingsList bookings={bookings} />
+      <BookingsList bookings={bookings} onCancel={handleCancelBooking} />
       <div></div>
     </div>
   );
