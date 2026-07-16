@@ -8,6 +8,7 @@ import Button from "../../UI/Button/Button";
 import Field from "../../UI/Field/Field";
 import AuthLayout from "../../Layouts/AuthLayout/AuthLayout";
 import { useAuth } from "../../../Context/AuthContext/useAuth";
+import { useState } from "react";
 
 type RegisterFormData = {
   name: string;
@@ -18,6 +19,8 @@ type RegisterFormData = {
 };
 
 const Register = () => {
+  const [authError, setAuthError] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -31,6 +34,7 @@ const Register = () => {
 
   const onSubmit = async (data: RegisterFormData) => {
     try {
+      setAuthError("");
       await registerUser({
         name: data.name,
         phone: data.phone,
@@ -39,7 +43,9 @@ const Register = () => {
       });
       navigate("/profile");
     } catch {
-      console.log("Ошибка регистрации");
+      setAuthError(
+        "Не удалось зарегистрироваться. Возможно, email уже используется",
+      );
     }
   };
 
@@ -113,6 +119,8 @@ const Register = () => {
         <Button className={styles.submitButton} type="submit">
           Зарегистрироваться
         </Button>
+
+        {authError && <p className={styles.formError}>{authError}</p>}
       </form>
     </AuthLayout>
   );

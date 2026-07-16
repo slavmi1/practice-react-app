@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -52,7 +52,7 @@ const BookingForm = (props: BookingFormProps) => {
     handleSubmit,
     control,
     setValue,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<BookingFormData>({
     resolver: yupResolver(bookSchema),
     defaultValues: {
@@ -63,16 +63,24 @@ const BookingForm = (props: BookingFormProps) => {
     },
   });
 
+  const [submitMessage, setSubmitMessage] = useState("");
+  const [submitError, setSubmitError] = useState("");
+
   const onSubmit = async (data: BookingFormData) => {
-    const bookingData: CreateBookingData = {
-      serviceId: String(data.service),
-      date: data.date.toISOString().split("T")[0], // обрезает время
-      time: data.time,
-    };
+    setSubmitMessage("");
+    setSubmitError("");
 
-    const booking = await createBooking(bookingData);
+    try {
+      await createBooking({
+        serviceId: String(data.service),
+        date: data.date.toISOString().split("T")[0], // обрезает время
+        time: data.time,
+      });
 
-    console.log(booking);
+      setSubmitMessage("Запись успешно создана");
+    } catch {
+      setSubmitError("Не удалось создать запись. Попробуйте еще раз");
+    }
   };
 
   const selectedDateWatch = useWatch({ control, name: "date" });
@@ -168,12 +176,18 @@ const BookingForm = (props: BookingFormProps) => {
             </div>
           </div>
 
-          <Button icon={calenderLight} className={styles.button} type="submit">
-            Записаться
+          <Button
+            icon={calenderLight}
+            className={styles.button}
+            type="submit"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Отправка..." : "Записаться"}
           </Button>
 
           <p className={styles.mark}>
-            Мы свяжемся с вами для подтверждения записи.
+            {submitMessage && submitMessage}
+            {submitError && submitError}
           </p>
         </form>
 

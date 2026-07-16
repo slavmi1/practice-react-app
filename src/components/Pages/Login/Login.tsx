@@ -8,6 +8,7 @@ import Button from "../../UI/Button/Button";
 import Field from "../../UI/Field/Field";
 import AuthLayout from "../../Layouts/AuthLayout/AuthLayout";
 import { useAuth } from "../../../Context/AuthContext/useAuth";
+import { useState } from "react";
 
 type LoginFormData = {
   email: string;
@@ -15,6 +16,8 @@ type LoginFormData = {
 };
 
 const Login = () => {
+  const [authError, setAuthError] = useState("");
+
   // Достаем из useForm только то, что нужно
   const {
     register, // Подключает input к React Hook Form
@@ -29,10 +32,11 @@ const Login = () => {
 
   const onSubmit = async (data: LoginFormData) => {
     try {
+      setAuthError("");
       await login(data);
       navigate("/profile");
     } catch {
-      console.log("Ошибка авторизации");
+      setAuthError("Неверный email или пароль");
     }
   };
 
@@ -77,6 +81,8 @@ const Login = () => {
         <Button className={styles.submitButton} type="submit">
           Войти
         </Button>
+
+        {authError && <p className={styles.formError}>{authError}</p>}
       </form>
     </AuthLayout>
   );

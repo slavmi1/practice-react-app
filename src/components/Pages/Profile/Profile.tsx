@@ -10,6 +10,9 @@ import { getServices } from "../../../Api/servicesApi";
 
 const Profile = () => {
   const [bookings, setBookings] = useState<BookingView[]>([]);
+
+  const [cancelError, setCancelError] = useState("");
+
   const { user } = useAuth();
 
   const totalBookings = bookings.length;
@@ -23,18 +26,24 @@ const Profile = () => {
   ).length;
 
   const handleCancelBooking = async (bookingId: string) => {
-    const updatedBooking = await cancelBooking(bookingId);
+    setCancelError("");
 
-    setBookings((currentBookings) =>
-      currentBookings.map((booking) =>
-        booking._id === updatedBooking._id
-          ? {
-              ...booking,
-              status: updatedBooking.status,
-            }
-          : booking,
-      ),
-    );
+    try {
+      const updatedBooking = await cancelBooking(bookingId);
+
+      setBookings((currentBookings) =>
+        currentBookings.map((booking) =>
+          booking._id === updatedBooking._id
+            ? {
+                ...booking,
+                status: updatedBooking.status,
+              }
+            : booking,
+        ),
+      );
+    } catch {
+      setCancelError("Не удалось отменить запись");
+    }
   };
 
   useEffect(() => {
@@ -86,8 +95,8 @@ const Profile = () => {
       />
 
       <h2 className={styles.myBookings}>Мои записи</h2>
+      {cancelError && <p className={styles.error}>{cancelError}</p>}
       <BookingsList bookings={bookings} onCancel={handleCancelBooking} />
-      <div></div>
     </div>
   );
 };

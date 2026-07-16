@@ -118,6 +118,11 @@ export function bookingsPlugin(): Plugin {
         }
 
         if (req.method === "PATCH" && cancelMatch) {
+          sendJson(res, 404, {
+            error: "Запись не найдена",
+          });
+          return;
+
           const bookingId = cancelMatch[1];
           const db = readDb();
 

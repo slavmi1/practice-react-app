@@ -61,44 +61,44 @@
   ],
   "bookings": [
     {
-      "_id": "e11a28a3-7f68-460c-a9c1-1620c8ff34d4",
-      "userId": "93d6736f-4be8-4b93-9180-580fa81bab45",
-      "serviceId": "1",
-      "date": "2026-08-29",
-      "time": "9:00",
-      "status": "cancelled"
-    },
-    {
-      "_id": "58a71092-a032-4696-9b36-8e8d9648e6ae",
-      "userId": "93d6736f-4be8-4b93-9180-580fa81bab45",
-      "serviceId": "1",
-      "date": "2026-07-16",
-      "time": "13:00",
-      "status": "completed"
-    },
-    {
-      "_id": "6ca8806c-1423-4317-b4b8-8810707ea347",
+      "_id": "186d00c6-c65d-4323-a0a6-ccf6c567842d",
       "userId": "93d6736f-4be8-4b93-9180-580fa81bab45",
       "serviceId": "2",
-      "date": "2026-07-15",
-      "time": "14:00",
-      "status": "cancelled"
-    },
-    {
-      "_id": "3a39cb24-b031-4b34-86e1-d6534a7497c1",
-      "userId": "93d6736f-4be8-4b93-9180-580fa81bab45",
-      "serviceId": "4",
-      "date": "2026-07-15",
-      "time": "15:00",
-      "status": "cancelled"
-    },
-    {
-      "_id": "7c3edc37-d82f-481d-ad3e-287ebf315cd0",
-      "userId": "93d6736f-4be8-4b93-9180-580fa81bab45",
-      "serviceId": "5",
       "date": "2026-07-16",
-      "time": "14:00",
+      "time": "18:00",
+      "status": "new"
+    },
+    {
+      "_id": "833a94ac-768f-4484-a94b-ddd718fe8306",
+      "userId": "032c3bfe-c6a2-4e73-ab3f-091be7df3217",
+      "serviceId": "2",
+      "date": "2026-07-16",
+      "time": "12:00",
       "status": "cancelled"
+    },
+    {
+      "_id": "4f1117b3-51f8-404a-8834-ae85a010fbb1",
+      "userId": "032c3bfe-c6a2-4e73-ab3f-091be7df3217",
+      "serviceId": "2",
+      "date": "2026-07-16",
+      "time": "12:00",
+      "status": "new"
+    },
+    {
+      "_id": "ca43590f-2c58-4f5a-829e-939016159f24",
+      "userId": "032c3bfe-c6a2-4e73-ab3f-091be7df3217",
+      "serviceId": "2",
+      "date": "2026-07-16",
+      "time": "12:00",
+      "status": "cancelled"
+    },
+    {
+      "_id": "7566677a-14da-4d40-9cbe-6161f779e26e",
+      "userId": "032c3bfe-c6a2-4e73-ab3f-091be7df3217",
+      "serviceId": "2",
+      "date": "2026-07-16",
+      "time": "12:00",
+      "status": "new"
     }
   ]
 }
