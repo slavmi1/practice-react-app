@@ -3,6 +3,7 @@ import BookingsList from "./BookingsList/BookingsList";
 
 import styles from "./Profile.module.scss";
 import type { Booking } from "../../../Types/booking";
+import { useAuth } from "../../../Context/AuthContext/useAuth";
 
 const bookings: Booking[] = [
   {
@@ -48,13 +49,19 @@ const bookings: Booking[] = [
 ];
 
 const Profile = () => {
+  const { user } = useAuth();
+
+  if (!user) {
+    return null;
+  }
+
   return (
     <div className={styles.profile}>
       <h1 className={styles.title}>Личный кабинет</h1>
       <p className={styles.underTitle}>
         Просматривайте свои записи и управляйте ими в одном месте
       </p>
-      <UserInfoCard />
+      <UserInfoCard user={user} />
 
       <h2 className={styles.myBookings}>Мои записи</h2>
       <BookingsList bookings={bookings} />

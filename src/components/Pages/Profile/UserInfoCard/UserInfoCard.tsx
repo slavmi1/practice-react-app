@@ -9,21 +9,26 @@ import clock from "../../../../assets/icons/clock_light.svg";
 import completed from "../../../../assets/icons/completed.svg";
 import phone from "../../../../assets/icons/phone.svg";
 import email from "../../../../assets/icons/email.svg";
+import type { User } from "../../../../Types/user";
 
-const UserInfoCard = () => {
+type UserInfoCardProps = {
+  user: User;
+};
+
+const UserInfoCard = ({ user }: UserInfoCardProps) => {
   return (
     <Card className={styles.userInfoCard}>
       <img src={avatar} className={styles.avatar} />
 
       <div className={styles.userInfo}>
-        <p className={styles.name}>Алексей Петров</p>
+        <p className={styles.name}>{user.name}</p>
         <div className={styles.contact}>
           <img src={phone} />
-          <p> +7(996) 461-32-12</p>
+          <p>{user.phone}</p>
         </div>
         <div className={styles.contact}>
           <img src={email} />
-          <p>alex@example.com</p>
+          <p>{user.email}</p>
         </div>
       </div>
 

@@ -16,6 +16,7 @@ import { createBooking } from "../../../../Api/bookingApi";
 import styles from "./BookingForm.module.scss";
 import calenderLight from "../../../../assets/icons/calendar_light.svg";
 import calenderDark from "../../../../assets/icons/calendar_dark.svg";
+import { useAuth } from "../../../../Context/AuthContext/useAuth";
 
 type BookingFormProps = {
   services: Service[];
@@ -25,6 +26,8 @@ type BookingFormProps = {
 
 const BookingForm = (props: BookingFormProps) => {
   const { services, selectedServiceId, onServiceSelect } = props;
+
+  const { user } = useAuth();
 
   const serviceOptions = services.map((service) => ({
     value: String(service._id),
@@ -82,6 +85,15 @@ const BookingForm = (props: BookingFormProps) => {
       });
     }
   }, [selectedServiceId, setValue]);
+
+  useEffect(() => {
+    if (!user) {
+      return;
+    }
+
+    setValue("name", user.name);
+    setValue("phone", user.phone);
+  }, [user, setValue]);
 
   return (
     <Card className={styles.bookingForm}>
