@@ -31,7 +31,7 @@ const Register = () => {
 
   const onSubmit = (data: RegisterFormData) => {
     login({
-      id: crypto.randomUUID(),
+      _id: crypto.randomUUID(),
       name: data.name,
       email: data.email,
       phone: data.phone,

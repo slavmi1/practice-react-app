@@ -29,7 +29,7 @@ const Login = () => {
 
   const onSubmit = (data: LoginFormData) => {
     login({
-      id: "1",
+      _id: "1",
       name: "Егор",
       email: data.email,
       phone: "79999999999",

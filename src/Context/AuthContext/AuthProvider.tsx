@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from "react";
 
-import { AuthContext, type AuthContextValue, type User } from "./AuthContext";
+import { AuthContext, type AuthContextValue } from "./AuthContext";
+import type { User } from "../../Types/user";
 
 type AuthProviderProps = {
   children: ReactNode;

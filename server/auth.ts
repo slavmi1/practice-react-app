@@ -1,112 +1,161 @@
-import fs from 'node:fs'
-import crypto from 'node:crypto'
+import fs from "node:fs";
+import crypto from "node:crypto";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
-export type MockUser = {
-  _id: number
-  username: string
-  password: string
-  role: 'admin' | 'user'
-}
+export type DbUser = {
+  _id: string;
+  name: string;
+  email: string;
+  phone: string;
+  password: string;
+  role: "user" | "admin";
+};
 
 type DbShape = {
-  users: MockUser[]
-}
+  users: DbUser[];
+};
 
-type SessionUser = Omit<MockUser, 'password'>
+type SessionUser = Omit<DbUser, "password">;
 
-const dbUrl = new URL('./db.json', import.meta.url)
-const tokenStore = new Map<string, SessionUser>()
+type JwtPayload = {
+  userId: string;
+};
+
+const dbUrl = new URL("./db.json", import.meta.url);
+const JWT_SECRET = "barbertime-secret";
 
 function readDb(): DbShape {
-  const fileContent = fs.readFileSync(dbUrl, 'utf8')
-  return JSON.parse(fileContent) as DbShape
+  const fileContent = fs.readFileSync(dbUrl, "utf8");
+  return JSON.parse(fileContent) as DbShape;
 }
 
 function writeDb(db: DbShape) {
-  fs.writeFileSync(dbUrl, `${JSON.stringify(db, null, 2)}\n`, 'utf8')
+  fs.writeFileSync(dbUrl, `${JSON.stringify(db, null, 2)}\n`, "utf8");
 }
 
-export function sanitizeUser(user: MockUser): SessionUser {
+export function sanitizeUser(user: DbUser): SessionUser {
+  const { password, ...sessionUser } = user;
+
+  return sessionUser;
+}
+
+export function findUserByEmail(email: string) {
+  return (
+    readDb().users.find((user) => user.email === email.trim().toLowerCase()) ??
+    null
+  );
+}
+
+export async function createUser(
+  name: string,
+  email: string,
+  phone: string,
+  password: string,
+) {
+  const db = readDb();
+
+  const normalizedEmail = email.trim().toLowerCase();
+
+  if (db.users.some((user) => user.email === normalizedEmail)) {
+    return {
+      ok: false as const,
+      error: "User already exists",
+    };
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const newUser: DbUser = {
+    _id: crypto.randomUUID(),
+    name: name.trim(),
+    email: normalizedEmail,
+    phone: phone.trim(),
+    password: hashedPassword,
+    role: "user",
+  };
+
+  db.users.push(newUser);
+  writeDb(db);
+
   return {
-    _id: user._id,
-    username: user.username,
-    role: user.role,
-  }
+    ok: true as const,
+    user: newUser,
+  };
 }
 
-export function findUserByCredentials(username: string, password: string) {
-  return readDb().users.find((user) => user.username === username && user.password === password) ?? null
+export function sendJson(
+  res: import("node:http").ServerResponse,
+  statusCode: number,
+  payload: unknown,
+) {
+  res.statusCode = statusCode;
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
+  res.end(JSON.stringify(payload));
 }
 
-export function createUser(username: string, password: string) {
-  const db = readDb()
-  const normalizedUsername = username.trim()
-
-  if (db.users.some((user) => user.username === normalizedUsername)) {
-    return { ok: false as const, error: 'User already exists' }
-  }
-
-  const nextId = db.users.reduce((maxId, user) => Math.max(maxId, user._id), 0) + 1
-  const newUser: MockUser = {
-    _id: nextId,
-    username: normalizedUsername,
-    password,
-    role: 'user',
-  }
-
-  db.users.push(newUser)
-  writeDb(db)
-
-  return { ok: true as const, user: newUser }
-}
-
-export function createTokenForUser(user: MockUser) {
-  const token = crypto.randomUUID()
-  tokenStore.set(token, sanitizeUser(user))
-  return token
-}
-
-export function parseBearerToken(authHeader: string | string[] | undefined) {
-  if (!authHeader) return null
-  if (Array.isArray(authHeader)) return parseBearerToken(authHeader[0])
-
-  const parts = authHeader.split(' ')
-  if (parts.length !== 2) return null
-  if (parts[0] !== 'Bearer') return null
-
-  return parts[1] || null
-}
-
-export function getUserByToken(token: string | null) {
-  if (!token) return null
-  return tokenStore.get(token) ?? null
-}
-
-export function sendJson(res: import('node:http').ServerResponse, statusCode: number, payload: unknown) {
-  res.statusCode = statusCode
-  res.setHeader('Content-Type', 'application/json; charset=utf-8')
-  res.end(JSON.stringify(payload))
-}
-
-export function sendUnauthorized(res: import('node:http').ServerResponse, reason: string) {
-  res.statusCode = 401
-  res.setHeader('WWW-Authenticate', 'Bearer realm="Mock API"')
-  res.setHeader('Content-Type', 'application/json; charset=utf-8')
-  res.end(JSON.stringify({ ok: false, error: reason }))
-}
-
-export async function readJsonBody<T>(req: import('node:http').IncomingMessage) {
-  const chunks: Buffer[] = []
+export async function readJsonBody<T>(
+  req: import("node:http").IncomingMessage,
+) {
+  const chunks: Buffer[] = [];
 
   for await (const chunk of req) {
-    chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk))
+    chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
   }
 
-  const rawBody = Buffer.concat(chunks).toString('utf8').trim()
+  const rawBody = Buffer.concat(chunks).toString("utf8").trim();
   if (!rawBody) {
-    return {} as T
+    return {} as T;
   }
 
-  return JSON.parse(rawBody) as T
+  return JSON.parse(rawBody) as T;
 }
 
+export function createTokenForUser(user: DbUser) {
+  return jwt.sign(
+    {
+      userId: user._id,
+    },
+    JWT_SECRET,
+    {
+      expiresIn: "7d",
+    },
+  );
+}
+
+export function verifyToken(token: string) {
+  try {
+    return jwt.verify(token, JWT_SECRET) as JwtPayload;
+  } catch {
+    return null;
+  }
+}
+
+export async function verifyPassword(password: string, hashedPassword: string) {
+  return bcrypt.compare(password, hashedPassword);
+}
+
+export function findUserById(userId: string) {
+  return readDb().users.find((user) => user._id === userId) ?? null;
+}
+
+export function getCookie(
+  cookieHeader: string | undefined,
+  cookieName: string,
+) {
+  if (!cookieHeader) {
+    return null;
+  }
+
+  const cookies = cookieHeader.split(";");
+
+  for (const cookie of cookies) {
+    const [name, ...valueParts] = cookie.trim().split("=");
+
+    if (name === cookieName) {
+      return valueParts.join("=") || null;
+    }
+  }
+
+  return null;
+}

@@ -1,5 +1,14 @@
 {
-  "users": [],
+  "users": [
+    {
+      "_id": "032c3bfe-c6a2-4e73-ab3f-091be7df3217",
+      "name": "Егор",
+      "email": "egor@example.com",
+      "phone": "+79999999999",
+      "password": "$2b$10$usNSv8EVZT3xGoHOIkzoE.C0Hn6U8YIxRKdmXhyZqxF3/1SRKjXkm",
+      "role": "user"
+    }
+  ],
   "services": [
     {
       "_id": 1,
