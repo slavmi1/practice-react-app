@@ -15,3 +15,7 @@ export type LoginData = {
 export type AuthResponse = {
   user: User;
 };
+
+export type SessionResponse = {
+  user: User | null;
+};

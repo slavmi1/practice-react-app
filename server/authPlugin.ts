@@ -36,12 +36,13 @@ export function authPlugin(): Plugin {
 
         const isLogin = req.method === "POST" && req.url === "/api/auth/login";
 
-        const isMe = req.method === "GET" && req.url === "/api/auth/me";
+        const isSession =
+          req.method === "GET" && req.url === "/api/auth/session";
 
         const isLogout =
           req.method === "POST" && req.url === "/api/auth/logout";
 
-        if (!isRegister && !isLogin && !isMe && !isLogout) {
+        if (!isRegister && !isLogin && !isSession && !isLogout) {
           next();
           return;
         }
@@ -81,6 +82,7 @@ export function authPlugin(): Plugin {
             sendJson(res, 201, {
               user: sanitizeUser(result.user),
             });
+            return;
           } catch {
             sendJson(res, 400, {
               error: "Некорректные данные запроса",
@@ -139,12 +141,12 @@ export function authPlugin(): Plugin {
           }
         }
 
-        if (isMe) {
+        if (isSession) {
           const token = getCookie(req.headers.cookie, "authToken");
 
           if (!token) {
-            sendJson(res, 401, {
-              error: "Пользователь не авторизован",
+            sendJson(res, 200, {
+              user: null,
             });
             return;
           }
@@ -152,8 +154,8 @@ export function authPlugin(): Plugin {
           const payload = verifyToken(token);
 
           if (!payload) {
-            sendJson(res, 401, {
-              error: "Недействительный токен",
+            sendJson(res, 200, {
+              user: null,
             });
             return;
           }
@@ -161,8 +163,13 @@ export function authPlugin(): Plugin {
           const user = findUserById(payload.userId);
 
           if (!user) {
-            sendJson(res, 401, {
-              error: "Пользователь не найден",
+            res.setHeader(
+              "Set-Cookie",
+              "authToken=; HttpOnly; Path=/; SameSite=Lax; Max-Age=0",
+            );
+
+            sendJson(res, 200, {
+              user: null,
             });
             return;
           }

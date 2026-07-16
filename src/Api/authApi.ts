@@ -1,4 +1,9 @@
-import type { AuthResponse, LoginData, RegisterData } from "../Types/auth";
+import type {
+  AuthResponse,
+  LoginData,
+  RegisterData,
+  SessionResponse,
+} from "../Types/auth";
 
 import api from "./api";
 
@@ -16,8 +21,8 @@ export const loginUser = async (data: LoginData): Promise<AuthResponse> => {
   return response.data;
 };
 
-export const getCurrentUser = async (): Promise<AuthResponse> => {
-  const response = await api.get<AuthResponse>("/auth/me");
+export const getCurrentUser = async (): Promise<SessionResponse> => {
+  const response = await api.get<SessionResponse>("/auth/session");
 
   return response.data;
 };

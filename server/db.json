@@ -1,30 +1,5 @@
 {
-  "users": [
-    {
-      "_id": "032c3bfe-c6a2-4e73-ab3f-091be7df3217",
-      "name": "Егор",
-      "email": "egor@example.com",
-      "phone": "+79999999999",
-      "password": "$2b$10$usNSv8EVZT3xGoHOIkzoE.C0Hn6U8YIxRKdmXhyZqxF3/1SRKjXkm",
-      "role": "user"
-    },
-    {
-      "_id": "93d6736f-4be8-4b93-9180-580fa81bab45",
-      "name": "Admin",
-      "email": "admin@mail.ru",
-      "phone": "+79999999999",
-      "password": "$2b$10$wO5lch3PBhpWneaWavA0YuRG85ZALqIJfDCqAX3dTxYNFuXLJomS6",
-      "role": "user"
-    },
-    {
-      "_id": "3114df56-0128-46ed-9a84-319b40a2ab73",
-      "name": "Арсений",
-      "email": "yegorsubbotin5844@gmail.com",
-      "phone": "+79999999999",
-      "password": "$2b$10$9FMhkCR7IOurZZ7s/a0tY.NkMCvgexBNFRvnLliTTSBq6uEupkUMG",
-      "role": "user"
-    }
-  ],
+  "users": [],
   "services": [
     {
       "_id": "1",
@@ -67,56 +42,5 @@
       "icon": "/service-images/hairDryer.png"
     }
   ],
-  "bookings": [
-    {
-      "_id": "c1683233-fb5f-4746-a605-9d4b361c1353",
-      "userId": null,
-      "serviceId": "3",
-      "date": "2026-07-24",
-      "time": "15:00",
-      "name": "Егор",
-      "phone": "+79999999999",
-      "status": "new"
-    },
-    {
-      "_id": "22aef632-a52f-4657-a769-de14ca77f44b",
-      "userId": null,
-      "serviceId": "5",
-      "date": "2026-07-16",
-      "time": "17:00",
-      "name": "Егор",
-      "phone": "+79999999999",
-      "status": "new"
-    },
-    {
-      "_id": "f30e6874-3545-4832-ae7a-54b42c2dce98",
-      "userId": null,
-      "serviceId": "2",
-      "date": "2026-07-24",
-      "time": "16:00",
-      "name": "Егор",
-      "phone": "+79964613212",
-      "status": "new"
-    },
-    {
-      "_id": "03235dca-0825-40c5-b0b8-a6a0326f5bcc",
-      "userId": "3114df56-0128-46ed-9a84-319b40a2ab73",
-      "serviceId": "4",
-      "date": "2026-07-24",
-      "time": "9:00",
-      "name": "Арсений",
-      "phone": "+79999999999",
-      "status": "cancelled"
-    },
-    {
-      "_id": "81abe39e-888c-462d-8be2-1b3c0a3e079b",
-      "userId": "3114df56-0128-46ed-9a84-319b40a2ab73",
-      "serviceId": "1",
-      "date": "2026-07-23",
-      "time": "14:00",
-      "name": "Арсений",
-      "phone": "+79999999999",
-      "status": "cancelled"
-    }
-  ]
+  "bookings": []
 }
