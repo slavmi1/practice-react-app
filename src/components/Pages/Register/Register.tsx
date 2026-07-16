@@ -26,18 +26,21 @@ const Register = () => {
     resolver: yupResolver(registerSchema),
   });
 
-  const { login } = useAuth();
+  const { register: registerUser } = useAuth();
   const navigate = useNavigate();
 
-  const onSubmit = (data: RegisterFormData) => {
-    login({
-      _id: crypto.randomUUID(),
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-    });
-
-    navigate("/profile");
+  const onSubmit = async (data: RegisterFormData) => {
+    try {
+      await registerUser({
+        name: data.name,
+        phone: data.phone,
+        email: data.email,
+        password: data.password,
+      });
+      navigate("/profile");
+    } catch {
+      console.log("Ошибка регистрации");
+    }
   };
 
   return (

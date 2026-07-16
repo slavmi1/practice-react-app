@@ -7,6 +7,14 @@
       "phone": "+79999999999",
       "password": "$2b$10$usNSv8EVZT3xGoHOIkzoE.C0Hn6U8YIxRKdmXhyZqxF3/1SRKjXkm",
       "role": "user"
+    },
+    {
+      "_id": "93d6736f-4be8-4b93-9180-580fa81bab45",
+      "name": "Admin",
+      "email": "admin@mail.ru",
+      "phone": "+79999999999",
+      "password": "$2b$10$wO5lch3PBhpWneaWavA0YuRG85ZALqIJfDCqAX3dTxYNFuXLJomS6",
+      "role": "user"
     }
   ],
   "services": [

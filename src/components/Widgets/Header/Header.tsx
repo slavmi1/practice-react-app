@@ -9,9 +9,13 @@ const Header = () => {
   const { isAuth, logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    navigate("/", { replace: true });
-    logout();
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/", { replace: true });
+    } catch {
+      console.log("Ошибка при выходе");
+    }
   };
 
   return (

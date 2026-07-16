@@ -27,15 +27,13 @@ const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const onSubmit = (data: LoginFormData) => {
-    login({
-      _id: "1",
-      name: "Егор",
-      email: data.email,
-      phone: "79999999999",
-    });
-
-    navigate("/profile");
+  const onSubmit = async (data: LoginFormData) => {
+    try {
+      await login(data);
+      navigate("/profile");
+    } catch {
+      console.log("Ошибка авторизации");
+    }
   };
 
   return (
