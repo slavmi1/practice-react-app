@@ -35,7 +35,7 @@ function writeDb(db: DbShape) {
 }
 
 export function sanitizeUser(user: DbUser): SessionUser {
-  const { password, ...sessionUser } = user;
+  const { password: _password, ...sessionUser } = user;
 
   return sessionUser;
 }

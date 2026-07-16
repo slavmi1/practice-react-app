@@ -9,7 +9,6 @@ import Select from "../../../UI/Select/Select";
 
 import type { Service } from "../types";
 import { type BookingFormData, bookSchema } from "./bookSchema";
-import type { CreateBookingData } from "../../../../Types/booking";
 
 import { createBooking } from "../../../../Api/bookingApi";
 
