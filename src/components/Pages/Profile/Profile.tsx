@@ -67,11 +67,6 @@ const Profile = () => {
       });
 
       setBookings(preparedBookings);
-
-      console.log(bookingsData);
-      console.log(servicesData);
-      console.log(typeof bookingsData[0]?.serviceId);
-      console.log(typeof servicesData[0]?._id);
     };
 
     loadBookings();

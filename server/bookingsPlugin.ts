@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
-import type { Plugin } from "vite";
-
 import fs from "node:fs";
+
+import type { Plugin } from "vite";
 
 import { getCookie, readJsonBody, sendJson, verifyToken } from "./auth.ts";
 
@@ -9,14 +9,18 @@ type CreateBookingBody = {
   serviceId?: string;
   date?: string;
   time?: string;
+  name?: string;
+  phone?: string;
 };
 
 type DbBooking = {
   _id: string;
-  userId: string;
+  userId: string | null;
   serviceId: string;
   date: string;
   time: string;
+  name: string;
+  phone: string;
   status: "new" | "confirmed" | "completed" | "cancelled";
 };
 
@@ -59,6 +63,54 @@ export function bookingsPlugin(): Plugin {
           return;
         }
 
+        // Создание записи доступно и гостям
+        if (isCreateBooking) {
+          const body = await readJsonBody<CreateBookingBody>(req);
+
+          if (
+            !body.serviceId ||
+            !body.date ||
+            !body.time ||
+            !body.name ||
+            !body.phone
+          ) {
+            sendJson(res, 400, {
+              error: "Необходимо заполнить данные записи",
+            });
+            return;
+          }
+
+          const token = getCookie(req.headers.cookie, "authToken");
+          const payload = token ? verifyToken(token) : null;
+
+          if (token && !payload) {
+            sendJson(res, 401, {
+              error: "Недействительный токен",
+            });
+            return;
+          }
+
+          const booking: DbBooking = {
+            _id: crypto.randomUUID(),
+            userId: payload?.userId ?? null,
+            serviceId: body.serviceId,
+            date: body.date,
+            time: body.time,
+            name: body.name,
+            phone: body.phone,
+            status: "new",
+          };
+
+          const db = readDb();
+
+          db.bookings.push(booking);
+          writeDb(db);
+
+          sendJson(res, 201, booking);
+          return;
+        }
+
+        // Просмотр и отмена записей доступны только авторизованным
         const token = getCookie(req.headers.cookie, "authToken");
 
         if (!token) {
@@ -85,35 +137,6 @@ export function bookingsPlugin(): Plugin {
           );
 
           sendJson(res, 200, userBookings);
-          return;
-        }
-
-        if (isCreateBooking) {
-          const body = await readJsonBody<CreateBookingBody>(req);
-
-          if (!body.serviceId || !body.date || !body.time) {
-            sendJson(res, 400, {
-              error: "Необходимо заполнить данные записи",
-            });
-            return;
-          }
-
-          const booking: DbBooking = {
-            _id: crypto.randomUUID(),
-            userId: payload.userId,
-            serviceId: body.serviceId,
-            date: body.date,
-            time: body.time,
-            status: "new",
-          };
-
-          const db = readDb();
-
-          db.bookings.push(booking);
-
-          writeDb(db);
-
-          sendJson(res, 201, booking);
           return;
         }
 
@@ -157,7 +180,6 @@ export function bookingsPlugin(): Plugin {
           }
 
           booking.status = "cancelled";
-
           writeDb(db);
 
           sendJson(res, 200, booking);

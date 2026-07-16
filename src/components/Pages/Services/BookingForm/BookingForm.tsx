@@ -74,9 +74,13 @@ const BookingForm = (props: BookingFormProps) => {
         serviceId: String(data.service),
         date: data.date.toISOString().split("T")[0], // обрезает время
         time: data.time,
+        name: data.name,
+        phone: data.phone,
       });
 
-      setSubmitMessage("Запись успешно создана");
+      setSubmitMessage(
+        "Запись успешно создана, мы свяжемся с вами для подтверждения",
+      );
     } catch {
       setSubmitError("Не удалось создать запись. Попробуйте еще раз");
     }
