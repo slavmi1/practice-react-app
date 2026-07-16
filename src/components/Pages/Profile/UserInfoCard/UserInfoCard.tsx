@@ -13,9 +13,17 @@ import type { User } from "../../../../Types/user";
 
 type UserInfoCardProps = {
   user: User;
+  totalBookings: number;
+  upcomingBookings: number;
+  completedBookings: number;
 };
 
-const UserInfoCard = ({ user }: UserInfoCardProps) => {
+const UserInfoCard = ({
+  user,
+  totalBookings,
+  upcomingBookings,
+  completedBookings,
+}: UserInfoCardProps) => {
   return (
     <Card className={styles.userInfoCard}>
       <img src={avatar} className={styles.avatar} />
@@ -33,9 +41,17 @@ const UserInfoCard = ({ user }: UserInfoCardProps) => {
       </div>
 
       <div className={styles.statsContainer}>
-        <StatsCard icon={calendar} text="Всего записей" number={4} />
-        <StatsCard icon={clock} text="Предстоящих" number={2} />
-        <StatsCard icon={completed} text="Завершенных" number={1} />
+        <StatsCard
+          icon={calendar}
+          text="Всего записей"
+          number={totalBookings}
+        />
+        <StatsCard icon={clock} text="Предстоящих" number={upcomingBookings} />
+        <StatsCard
+          icon={completed}
+          text="Завершенных"
+          number={completedBookings}
+        />
       </div>
     </Card>
   );

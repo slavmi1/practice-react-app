@@ -1,9 +1,9 @@
-import type { Booking } from "../../../../Types/booking";
+import type { BookingView } from "../../../../Types/booking";
 import BookingCard from "./BookingCard/BookingCard";
 import styles from "./BookingsList.module.scss";
 
 type BookingsListProps = {
-  bookings: Booking[];
+  bookings: BookingView[];
 };
 
 const BookingsList = ({ bookings }: BookingsListProps) => {

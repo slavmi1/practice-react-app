@@ -1,4 +1,4 @@
-import type { Booking } from "../../../../../Types/booking";
+import type { BookingView } from "../../../../../Types/booking";
 import Badge from "../../../../UI/Badge/Badge";
 import Button from "../../../../UI/Button/Button";
 import Card from "../../../../UI/Card/Card";
@@ -6,7 +6,7 @@ import Card from "../../../../UI/Card/Card";
 import styles from "./BookingCard.module.scss";
 
 type BookingCardProps = {
-  booking: Booking;
+  booking: BookingView;
 };
 
 const BookingCard = ({ booking }: BookingCardProps) => {

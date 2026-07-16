@@ -7,6 +7,12 @@ export type Booking = {
   status: "confirmed" | "new" | "completed" | "cancelled";
 };
 
+export type BookingView = Booking & {
+  title: string;
+  duration: number;
+  price: number;
+};
+
 export type CreateBookingData = {
   serviceId: string;
   date: string;
