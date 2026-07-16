@@ -2,7 +2,7 @@ import { Link, NavLink, useNavigate } from "react-router";
 
 import styles from "./Header.module.scss";
 import { useAuth } from "../../../Context/AuthContext/useAuth";
-import logo from "../../../assets/logo.png";
+import logo from "../../../assets/logo.webp";
 import exitIcon from "../../../assets/icons/exit.svg";
 
 const Header = () => {

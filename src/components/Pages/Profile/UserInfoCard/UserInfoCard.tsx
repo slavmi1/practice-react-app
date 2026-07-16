@@ -3,7 +3,7 @@ import StatsCard from "./StatsCard/StatsCard";
 
 import styles from "./UserInfoCard.module.scss";
 
-import avatar from "../../../../assets/images/avatar.png";
+import avatar from "../../../../assets/images/avatar.webp";
 import calendar from "../../../../assets/icons/calendar_light.svg";
 import clock from "../../../../assets/icons/clock_light.svg";
 import completed from "../../../../assets/icons/completed.svg";

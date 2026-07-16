@@ -117,18 +117,26 @@ export function bookingsPlugin(): Plugin {
           return;
         }
 
-        if (req.method === "PATCH" && cancelMatch) {
-          sendJson(res, 404, {
-            error: "Запись не найдена",
-          });
-          return;
+        if (isCancelBooking) {
+          if (!cancelMatch) {
+            next();
+            return;
+          }
 
           const bookingId = cancelMatch[1];
+
+          if (!bookingId) {
+            sendJson(res, 400, {
+              error: "Некорректный ID записи",
+            });
+            return;
+          }
+
+          const userId = payload.userId;
           const db = readDb();
 
           const booking = db.bookings.find(
-            (booking) =>
-              booking._id === bookingId && booking.userId === payload.userId,
+            (booking) => booking._id === bookingId && booking.userId === userId,
           );
 
           if (!booking) {
@@ -149,6 +157,7 @@ export function bookingsPlugin(): Plugin {
           }
 
           booking.status = "cancelled";
+
           writeDb(db);
 
           sendJson(res, 200, booking);
