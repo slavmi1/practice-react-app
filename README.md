@@ -21,6 +21,26 @@
 - валидация форм и отображение ошибок запросов.
 - получение списка услуг через API;
 
+## Интерфейс
+
+### Главная страница
+
+<p align="center">
+  <img src="./docs/screenshots/home.webp" alt="Главная страница BarberTime" width="100%">
+</p>
+
+### Услуги и онлайн-запись
+
+<p align="center">
+  <img src="./docs/screenshots/services.webp" alt="Каталог услуг и форма онлайн-записи" width="100%">
+</p>
+
+### Личный кабинет
+
+<p align="center">
+  <img src="./docs/screenshots/profile.webp" alt="Личный кабинет пользователя" width="100%">
+</p>
+
 ## Технологии
 
 - **React 19**, **TypeScript**, **Vite**;
